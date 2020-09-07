@@ -11,7 +11,11 @@ void drawSphere(double x, double y, double z, double rad) {
 }
 
 void draw() {
-  translate(width/2, height/2);
+  translate(width / 2, height / 2);
   Star st = new Star(0, 0, 0);
+  Star st2 = new Star(1, 1, 1);
   st.drawStar();
+  st2.drawStar();
+  Earth e = new Earth();
+  e.drawEarth();
 }

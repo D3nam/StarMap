@@ -1,6 +1,4 @@
 
-float STAR_RADIUS = 73.71;
-
 class Star {
   float rac, dec, x, y, z;
   int id;
@@ -17,9 +15,7 @@ class Star {
   }
   
   void drawStar() {
-    pushMatrix();
-    translate(x, y, z);
-    sphere(STAR_RADIUS);
-    popMatrix();
+    strokeWeight(10);
+    point(x, y, z);
   }
 }
