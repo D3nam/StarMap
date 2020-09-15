@@ -1,4 +1,6 @@
 /*
+  DISCLAIMER: THIS CODE IS ONLY USED TO SERVE AS TEMPLATE
+
   void setup() {
     size(200,200,P3D);
     x = width/2;
