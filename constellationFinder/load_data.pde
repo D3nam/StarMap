@@ -38,7 +38,10 @@ void loadTable() {
  /*
       This method returns the location at which tar appears in array input. Return -1 if not found
       
-      Parameters = input String array with len so that it can be searched till that point, the target element
+      Parameters 
+      String tar- The string to be searched
+      String[] input -array to be searched
+      int len- length till which to search
   */
   
 int iscontained(String tar,String[] input, int len)
@@ -59,6 +62,7 @@ int iscontained(String tar,String[] input, int len)
    of names.
    
    Parameters:
+   int len- Point till the array names is to be read
    String[] names - an array of constellation names
  */
  
