@@ -12,15 +12,6 @@ void loadTable() {
   /* The following bit of code is only used for testing purposes
      to see how the table was loaded. Edit and change as you wish.
    */
-  TableRow row;
-  for (int i=0; i<5; i++) {
-    row = table.getRow(i);
-    print("ID:   " + row.getInt("id")     + "\n" +
-          "rac:  " + row.getFloat("ra")   + "\n" +
-          "dec:  " + row.getFloat("dec")  + "\n" +
-          "dist: " + row.getFloat("dist") + "\n");
-  }
-  
 }
 
 /* This method returns a Star object corresponding to given id number
@@ -29,18 +20,39 @@ void loadTable() {
    Parameters:
    int id - the id of the Star info in the dataset
  */
-Star loadStar(int id) {
+ 
+ Star loadStar(int id) {
+  for(int i = 0; i < table.getRowCount(); i++)
+  {
+    Star star;
+    TableRow row = table.getRow(i);
+    if(row.getInt("id") == id)
+    {
+       star = new Star(row.getFloat("ra"), row.getFloat("dec"), row.getFloat("mag"),row.getInt("id"));
+       return star;
+    }
+  }  
   return null;
 }
 
-/* This method returns a Constellation object corresponding to given
-   constellation name.
+ /*
+      This method returns the location at which tar appears in array input. Return -1 if not found
+      
+      Parameters = input String array with len so that it can be searched till that point, the target element
+  */
+  
+int iscontained(String tar,String[] input, int len)
+{
+  
+  for(int i = 0; i < len; i++){
    
-   Parameters:
-   String name - name of the constellation
- */
-Constellation loadConstellation(String name) {
-  return null;
+      if(tar.equals(input[i]))
+      {
+        print("here i am");
+        return i;
+      }
+  }
+  return -1;
 }
 
 /* This method returns a list of constellations from a given set
@@ -49,10 +61,19 @@ Constellation loadConstellation(String name) {
    Parameters:
    String[] names - an array of constellation names
  */
-Constellation[] loadConstellations(String[] names) {
-  Constellation[] constellations = new Constellation[names.length];
-  for (int i=0; i<names.length; i++) {
-    constellations[i] = loadConstellation(names[i]);
+ 
+Constellation[] loadConstellation(String[] names,int len) {
+  Constellation[] constellations = new Constellation[len];
+  for (int i=0; i< len; i++){
+    constellations[i] = new Constellation(names[i]);
   }
+  for(int i = 0; i < table.getRowCount(); i++){
+    TableRow row = table.getRow(i);
+    int loc = iscontained(row.getString("con"), names , len);
+    if( loc != -1){
+      Star starx = new Star(row.getFloat("ra"), row.getFloat("dec"), row.getFloat("mag"),row.getInt("id"));
+      constellations[loc].addStar(starx);
+    }
+  }  
   return constellations;
-}
+  }
